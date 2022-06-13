@@ -70,7 +70,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qwn-lG-2tZ"/>
-                                                    <segue destination="R95-Lm-18f" kind="show" identifier="tasksSegue" id="AyP-L1-igg"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s9u-ON-JzZ">
@@ -113,6 +112,7 @@
                         <outlet property="emailTextField" destination="IsY-px-qId" id="XAi-Jw-fJh"/>
                         <outlet property="passwordTextField" destination="2s6-uM-36G" id="j0V-ii-wvl"/>
                         <outlet property="warnLabel" destination="FYb-1T-ZXz" id="fr2-1G-75p"/>
+                        <segue destination="R95-Lm-18f" kind="show" identifier="tasksSegue" id="yVk-me-apF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -145,6 +145,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Tasks" id="xRa-v5-iWZ">
+                        <barButtonItem key="leftBarButtonItem" title="Sign Out" id="7Qo-n7-l2t">
+                            <connections>
+                                <action selector="signOutTapped:" destination="DS5-xV-7ZM" id="RJJ-ca-aQz"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="CDB-uv-ZiR">
                             <connections>
                                 <action selector="addTapped:" destination="DS5-xV-7ZM" id="FWn-Dv-HFe"/>

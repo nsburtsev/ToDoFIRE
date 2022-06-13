@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
@@ -19,10 +20,21 @@ class LoginViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(kbAppear), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(kbDisappear), name: UIResponder.keyboardDidHideNotification, object: nil)
+        
+        warnLabel.alpha = 0
+        
+        Auth.auth().addStateDidChangeListener({ [weak self] auth, user in
+            if user != nil {
+                self?.performSegue(withIdentifier: "tasksSegue", sender: nil)
+            }
+        })
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        emailTextField.text = ""
+        passwordTextField.text = ""
+        
     }
     
     @objc func kbAppear(notification: Notification) {
@@ -36,10 +48,55 @@ class LoginViewController: UIViewController {
         (self.view as! UIScrollView).contentSize = CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height)
     }
     
+    func displayWarningLabel(withText text: String) {
+        warnLabel.text = text
+        
+        UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: { [weak self] in
+            self?.warnLabel.alpha = 1
+        }) { [weak self] complete in
+            self?.warnLabel.alpha = 0
+        }
+    }
+    
     @IBAction func loginTapped(_ sender: UIButton) {
+        guard let email = emailTextField.text, let password = passwordTextField.text, email != "", password != "" else {
+            displayWarningLabel(withText: "Info is incorrect")
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] (user, error) in
+            if error != nil {
+                self?.displayWarningLabel(withText: "Error occured")
+                return
+            }
+            
+            if user != nil {
+                self?.performSegue(withIdentifier: "tasksSegue", sender: nil)
+                return
+            }
+            
+            self?.displayWarningLabel(withText: "No such user")
+        })
     }
     
     @IBAction func registerTapped(_ sender: UIButton) {
+        guard let email = emailTextField.text, let password = passwordTextField.text, email != "", password != "" else {
+            displayWarningLabel(withText: "Info is incorrect")
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+            
+            if error == nil {
+                if user != nil {
+                    
+                } else {
+                    print("user is not created")
+                }
+            } else {
+                print(error!.localizedDescription)
+            }
+        })
     }
     
 }
