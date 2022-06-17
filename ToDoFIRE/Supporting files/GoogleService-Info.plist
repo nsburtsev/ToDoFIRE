@@ -19,16 +19,18 @@
 	<key>STORAGE_BUCKET</key>
 	<string>todofire-74fdd.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:874540976602:ios:3922ae9e91648c81ac58e3</string>
+	<key>DATABASE_URL</key>
+	<string>https://todofire-74fdd-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>
